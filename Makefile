@@ -5,8 +5,8 @@ down:
 	@docker-compose down
 
 exec:
-	@docker-compose exec dev-env bash
+	@docker-compose exec dev-env zsh
 
 logs:
 	@docker-compose logs -f
- 
+
