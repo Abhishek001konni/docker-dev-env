@@ -1,0 +1,16 @@
+# Ignore logs and temporary files
+*.log
+*.tmp
+
+# Ignore node_modules for Node.js projects
+node_modules/
+
+# Ignore database files or data directories
+db-data/
+
+# Ignore Vim swap files
+*.swp
+
+# Ignore Docker system files
+.env
+
