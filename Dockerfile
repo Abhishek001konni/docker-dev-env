@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
 	   curl \
 	   wget \
 	   zsh \
+	   neofetch \ 
 	   unzip \
 	   && apt-get clean 
 

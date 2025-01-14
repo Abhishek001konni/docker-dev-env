@@ -2,6 +2,9 @@
 *.log
 *.tmp
 
+#ignore projects folder
+projects/
+
 # Ignore node_modules for Node.js projects
 node_modules/
 

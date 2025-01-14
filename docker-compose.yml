@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./projects:/workingdir  # Mount the host project directory to /workingdir in the container
+      - ./projects:/root  # Mount the host project directory to /workingdir in the container
     ports:
       - "8080:8080"
     stdin_open: true
