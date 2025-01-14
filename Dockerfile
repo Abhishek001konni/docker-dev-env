@@ -18,6 +18,6 @@ RUN apt-get update && apt-get install -y \
 
 RUN chsh -s $(which zsh) root
 
-WORKDIR /workingdir
+WORKDIR /root
 
 CMD ["zsh"]
