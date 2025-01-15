@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./projects:/workingdir # Mount host project directory to /workingdir 
+      - ./projects:/home/devuser # Mount host project directory to /home/devuser 
     ports:
       - "${APP_PORT:-8080}:8080"
     networks:
