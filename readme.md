@@ -30,8 +30,6 @@ make down: Stop and remove containers.
 make exec: Access the container shell.
 make logs: View container logs.
 
-TODO: replace nodejs pkg with nodesource bin
-
 ```
 
 
