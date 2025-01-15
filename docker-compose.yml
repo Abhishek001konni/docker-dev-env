@@ -1,41 +1,40 @@
-
 services:
   dev-env:
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./projects:/workingdir  # Mount host project directory to /workingdir 
+      - ./projects:/workingdir # Mount host project directory to /workingdir 
     ports:
-        - "${APP_PORT:-8080}:8080"
+      - "${APP_PORT:-8080}:8080"
     networks:
       - dev-network
     stdin_open: true
     tty: true
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080"]  # Replace with your app URL or command
-      interval: 30s  # Check every 30 seconds
-      timeout: 10s   # Timeout after 10 seconds
-      retries: 3     # Mark unhealthy if fails 3 consecutive times
+      test: [ "CMD", "curl", "-f", "http://localhost:8080" ] # Replace with your app URL or command
+      interval: 30s # Check every 30 seconds
+      timeout: 10s # Timeout after 10 seconds
+      retries: 3 # Mark unhealthy if fails 3 consecutive times
       start_period: 30s
     restart: unless-stopped
 
   mysql:
-    image: mysql:8.0  # MySQL as a database service
+    image: mysql:8.0 # MySQL as a database service
     container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}    # Root password for MySQL
-      MYSQL_DATABASE: ${MYSQL_DATABASE}  # A default database for the application
-      MYSQL_USER: ${MYSQL_USER}          # A non-root database user
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}  # Password for the non-root user
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} # Root password for MySQL
+      MYSQL_DATABASE: ${MYSQL_DATABASE} # A default database for the application
+      MYSQL_USER: ${MYSQL_USER} # A non-root database user
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD} # Password for the non-root user
     volumes:
-      - mysql-data:/var/lib/mysql  # Persist the MySQL database data
+      - mysql-data:/var/lib/mysql # Persist the MySQL database data
     ports:
       - "${MYSQL_PORT:-3306}:3306" # MySQL port forwarding from .env (default is 3306)
     networks:
       - dev-network
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h127.0.0.1 -uroot -p${MYSQL_ROOT_PASSWORD} --silent"]
+      test: [ "CMD-SHELL", "mysqladmin ping -h127.0.0.1 -uroot -p${MYSQL_ROOT_PASSWORD} --silent" ]
       interval: 20s
       timeout: 5s
       retries: 5
@@ -43,8 +42,10 @@ services:
     restart: unless-stopped
 
 networks:
-  dev-network: # Custom isolated network for all services
+  dev-network:
+    # Custom isolated network for all services
 
 volumes:
-  mysql-data:  # Persistent storage for MySQL
+  mysql-data:
+    # Persistent storage for MySQL
 
