@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./projects:/root  # Mount host project directory to /root (not recommended)
+      - ./projects:/workingdir  # Mount host project directory to /workingdir 
     ports:
         - "${APP_PORT:-8080}:8080"
     networks:

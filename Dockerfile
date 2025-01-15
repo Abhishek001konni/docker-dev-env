@@ -19,7 +19,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
 
 RUN chsh -s $(which zsh) root
 
-WORKDIR /root
+WORKDIR /workingdir
 
 # Add and switch to non-root user
 #RUN useradd -ms /bin/zsh devuser
