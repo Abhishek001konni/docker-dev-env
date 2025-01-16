@@ -13,26 +13,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Checkout the code
+    #  Checkout the code
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Step 2: Log in to DockerHub
+    # Enable Docker Buildkit
+    - name: Enable Docker BuildKit
+      run: echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
+
+    # Log in to DockerHub
     - name: Log in to DockerHub
       uses: docker/login-action@v2
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    # Step 3: Build and push the Docker image
+    # Cache docker layers
+    - name: Cache Docker layers
+      uses: actions/cache@v2
+      with:
+        path: /tmp/.buildx-cache
+        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-
+
+    # Build and push the Docker image
     - name: Build and Push Docker Image
       uses: docker/build-push-action@v4
       with:
         context: .
         push: ${{ github.event_name == 'push' }} # Push only for 'push' events
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/dev-env:latest
-
-    # Step 4: Run containerized tests
+        build-args: |
+           BUILDKIT_INLINE_CACHE=1
+        cache-from: type=gha 
+        cache-to: type=gha,mode=max
+    # Run containerized tests
     - name: Run Tests
       run: docker run --rm ${{ secrets.DOCKERHUB_USERNAME }}/dev-env:latest make test
 
