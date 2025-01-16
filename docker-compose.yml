@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./projects:/home/devuser # Mount host project directory to /home/devuser 
+      - ${PROJECT_DIR}:/home/devuser # Mount host project directory to /home/devuser 
     ports:
       - "${APP_PORT:-8080}:8080"
     networks:
@@ -28,7 +28,7 @@ services:
       MYSQL_USER: ${MYSQL_USER} # A non-root database user
       MYSQL_PASSWORD: ${MYSQL_PASSWORD} # Password for the non-root user
     volumes:
-      - mysql-data:/var/lib/mysql # Persist the MySQL database data
+      - ${MYSQL_DATA}:/var/lib/mysql # Persist the MySQL database data
       - ./init-sql:/docker-entrypoint-initdb.d/
     ports:
       - "${MYSQL_PORT:-3306}:3306" # MySQL port forwarding from .env (default is 3306)
