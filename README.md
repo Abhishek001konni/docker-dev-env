@@ -27,27 +27,35 @@ This repository contains the Docker setup for my customizable development enviro
 ## Makefile Commands
 
 - Build and start the environment: 
-`  make up`
+`make up`
 
 - Stop and remove containers: 
- ` make down `
+ `make down `
 
 - Access the container shell: 
-`  make exec`
+`make exec`
 
 - View container logs: 
-`  make logs`
+`make logs`
 
 ## Environment Variables
 
 Create a `.env` file in the root directory and set the following environment variables(change accordingly):
 
 ```
-APP_PORT=8080
-MYSQL_ROOT_PASSWORD=rootpassword
-MYSQL_DATABASE=mydatabase
-MYSQL_USER=myuser
-MYSQL_PASSWORD=mypassword
+# MySQL Configuration
+MYSQL_PORT=3307         # Port exposed to the host for MySQL (mapped from 3306 in the container)
+MYSQL_ROOT_PASSWORD=root   # MySQL root password for the database
+MYSQL_DATABASE=dev_database # Default database to create in MySQL
+MYSQL_USER=devuser          # Non-root database user
+MYSQL_PASSWORD=devpassword  # Password for the non-root user
+
+# Application Configuration
+APP_PORT=8080        # Application port exposed to the host
+
+#Default path
+PROJECT_DIR=./projects
+MYSQL_DATA=mysql-data
 ```
 
 ## Services
