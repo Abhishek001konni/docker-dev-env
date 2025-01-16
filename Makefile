@@ -25,3 +25,8 @@ help:
 	@echo "  clean   - Remove all containers, images, and volumes"
 	@echo "  logs    - Tail the logs of services"
 
+test:
+	@echo "Running tests for the development environment..."
+	@php -v && node -v && mysql --version || (echo "Tool verification failed!" && exit 1)
+	@echo "All tests passed successfully!"
+
