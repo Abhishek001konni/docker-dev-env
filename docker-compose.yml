@@ -12,7 +12,7 @@ services:
     stdin_open: true
     tty: true
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080" ] # Replace with your app URL or command
+      test: [ "CMD", "zsh","--version" ] # Replace with your app URL or command
       interval: 30s # Check every 30 seconds
       timeout: 10s # Timeout after 10 seconds
       retries: 3 # Mark unhealthy if fails 3 consecutive times
