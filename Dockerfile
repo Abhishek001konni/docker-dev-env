@@ -1,9 +1,10 @@
-FROM debian:bullseye
+FROM debian:bookworm
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	build-essential \
 	sudo \
-	default-jdk \
+	openjdk-17-jdk \
+	openssh-server \
 	php \
 	default-mysql-client \
 	git \
@@ -15,7 +16,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	&& apt-get clean 
 
 
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
 	&& apt-get install -y nodejs
 
 RUN chsh -s $(which zsh) root
