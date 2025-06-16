@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ${PROJECT_DIR}:/home/devuser # Mount host project directory to /home/devuser 
+      - ${PROJECT_DIR}:/home/devuser/projects # Mount host project directory 
     ports:
       - "${APP_PORT:-8080}:8080"
     networks:
@@ -12,7 +12,7 @@ services:
     stdin_open: true
     tty: true
     healthcheck:
-      test: [ "CMD", "zsh","--version" ] # Replace with your app URL or command
+      test: [ "CMD", "zsh", "--version" ] # Replace with your app URL or command
       interval: 30s # Check every 30 seconds
       timeout: 10s # Timeout after 10 seconds
       retries: 3 # Mark unhealthy if fails 3 consecutive times
@@ -28,8 +28,7 @@ services:
       MYSQL_USER: ${MYSQL_USER} # A non-root database user
       MYSQL_PASSWORD: ${MYSQL_PASSWORD} # Password for the non-root user
     volumes:
-      - ${MYSQL_DATA}:/var/lib/mysql # Persist the MySQL database data
-      - ./init-sql:/docker-entrypoint-initdb.d/
+      - mysql-data:/var/lib/mysql # Persist the MySQL database data
     ports:
       - "${MYSQL_PORT:-3306}:3306" # MySQL port forwarding from .env (default is 3306)
     networks:

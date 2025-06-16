@@ -24,7 +24,7 @@ RUN chsh -s $(which zsh) root
 
 # Add and switch to non-root user
 RUN useradd -ms /bin/zsh devuser \
-    && echo "devuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers  # Allow devuser to use sudo without a password
+	&& echo "devuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers  # Allow devuser to use sudo without a password
 
 # Copy Makefile into the container
 COPY Makefile /home/devuser/
