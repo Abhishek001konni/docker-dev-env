@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM debian:bookworm-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	build-essential \
@@ -13,14 +13,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	wget \
 	zsh \
 	unzip \
-	&& apt-get clean 
+  ca-certificates \
+  && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+  && apt-get install -y nodejs \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-
-RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
-	&& apt-get install -y nodejs
 
 RUN chsh -s $(which zsh) root
-
 
 # Add and switch to non-root user
 RUN useradd -ms /bin/zsh devuser \
