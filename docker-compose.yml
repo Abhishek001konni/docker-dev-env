@@ -33,6 +33,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD} # Password for the non-root user
     volumes:
       - mysql-data:/var/lib/mysql # Persist the MySQL database data
+      - ./init-sql:/docker-entrypoint-initdb.d/
     ports:
       - "${MYSQL_PORT:-3306}:3306" # MySQL port forwarding from .env (default is 3306)
     networks:
