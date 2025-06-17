@@ -1,6 +1,6 @@
 # Dockerized Development Environment
 
-This repository contains the Docker setup for my customizable development environment.
+This repository contains a Docker setup for my customizable development environment.
 
 ## Included Tools
 - Debian-based environment with:
@@ -18,12 +18,14 @@ This repository contains the Docker setup for my customizable development enviro
 
    `docker-compose up --build -d`
 
-3. Access the container:
+2. Access the container shell:
  
    `docker-compose exec dev-env zsh`
 
-4. Mount your host project directory (`./my-project`) to `/workingdir` in the container.
+3. Mount your host project directory (default: `./projects`) to `/home/devuser/projects` in the container.
 
+   - The mount path is now `/home/devuser/projects`, not `/workingdir`.
+   
 ## Makefile Commands
 
 - Build and start the environment: 
@@ -37,6 +39,9 @@ This repository contains the Docker setup for my customizable development enviro
 
 - View container logs: 
 `make logs`
+
+- View available commands
+`make help`
 
 ## Environment Variables
 
@@ -56,6 +61,10 @@ APP_PORT=8080        # Application port exposed to the host
 #Default path
 PROJECT_DIR=./projects
 MYSQL_DATA=mysql-data
+
+# Host User/Group IDs (for correct file permissions)
+USER_ID=1000
+GROUP_ID=100
 ```
 
 ## Services
@@ -64,13 +73,17 @@ MYSQL_DATA=mysql-data
 - mysql: MySQL database service.
 
 ### Volumes
-
-- `./projects:/workingdir`: Mounts the host project directory to `/workingdir` in the container.
+- `${PROJECT_DIR:-./projects}:/home/devuser/projects`: Mounts your project directory to the container.
 - `mysql-data:/var/lib/mysql`: Persists the MySQL database data.
 
 ### Network
 
 - `dev-network`: Custom isolated network for all services.
+
+### Ownership & Permissions
+
+- The container’s entrypoint script ensures `/home/devuser/projects` is owned by the correct user/group matching your host (using `USER_ID`, `GROUP_ID`).  
+- This ensures files created in the container remain editable on your host.
 
 ### Healthchecks
 
