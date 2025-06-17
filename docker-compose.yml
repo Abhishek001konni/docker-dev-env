@@ -3,6 +3,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        #Pass host UID/GID to build
+        USER_ID: ${USER_ID:-1000}
+        GROUP_ID: ${GROUP_ID:-100}
     volumes:
       - ${PROJECT_DIR}:/home/devuser/projects # Mount host project directory 
     ports:
