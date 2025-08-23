@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim
+FROM debian:testing-slim
 
 # Accept UID and GID as build arguments
 ARG USER_ID=1000
