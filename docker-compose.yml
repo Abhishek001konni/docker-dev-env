@@ -10,7 +10,7 @@ services:
     volumes:
       - ${PROJECT_DIR:-./projects}:/home/devuser/projects # Mount host project directory 
     ports:
-      - "${APP_PORT:-8080}:8080"
+      - "${APP_PORT:-8080}:3000"
     networks:
       - dev-network
     stdin_open: true
