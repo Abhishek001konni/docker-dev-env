@@ -7,7 +7,7 @@ ARG GROUP_ID=100
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	build-essential \
 	sudo \
-	openjdk-17-jdk \
+	default-jdk \
 	openssh-server \
 	php \
 	default-mysql-client \
